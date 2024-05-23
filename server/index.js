@@ -6,19 +6,19 @@ const { connectDb } = require("./db/connection");
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-});
-
 require("dotenv").config();
 app.use(express.json());
 connectDb();
+
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+  },
+});
+
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.CLIENT_URL,
   })
 );
 
